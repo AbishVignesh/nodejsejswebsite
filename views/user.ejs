@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %> 
+</head>
+<body>
+<% include partials/menu %>
+
+<div class="container-fluid bg-3 text-center">    
+  <h3><%= page %></h3><br>
+  <div class="row">
+       
+            <img id="userPhoto" src="<%= data.img %>" onerror=this.src="<%= data.imgerror %>" alt="user image">
+            <div class="info"><label> name: <%= data.name%></label>
+            <label> Location: <%= data.location%></label>
+            <label> Type: <%= data.type%></label></div>
+            
+
+    
+      
+    <!-- <div class="col-sm-4">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      
+    </div>
+    <div class="col-sm-4"> 
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div class="col-sm-4"> 
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div> -->
+  </div>
+</div>
+<a class="goback" href="/users %>"> Go back</a>
+</body>
+<% include partials/script %>
+</html>

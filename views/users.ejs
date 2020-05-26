@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <% include partials/head %> 
+</head>
+<body>
+<% include partials/menu %>
+
+<div class="container-fluid bg-3 text-center">    
+  <h3><%= page %></h3><br>
+  <div class="row">
+    <% for(var i = 0; i < data.length; i++) { %>
+<a href="/user?id=<%= data[i].id %>">
+      <div class="col-md-3">
+        <!-- <div className='section'> -->
+            <!-- <img src="<%= data[i].login %>"/> -->
+            <img id="currentPhoto" src="<%= data[i].img %>" onerror=this.src="<%= data[i].imgerror %>" alt="user image">
+            <label> <%= data[i].name%></label>
+        <!-- </div> -->
+    </div>
+  </a>
+
+    <!-- <tr>
+        <% for(var j = 0; j < data[i].length; j++) { %>
+        <td><%= data[i][j]%></td>
+        <% } %>
+    </tr> -->
+    <% } %>
+      
+    <!-- <div class="col-sm-4">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      
+    </div>
+    <div class="col-sm-4"> 
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div class="col-sm-4"> 
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div> -->
+  </div>
+</div>
+
+</body>
+<% include partials/script %>
+</html>
