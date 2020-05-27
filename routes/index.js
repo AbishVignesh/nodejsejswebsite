@@ -908,14 +908,16 @@ var data = [{
 
 
 function ensureAuthenticated(req, res, next) {
-  console.log("====>",req,user)
-  console.log("====>",req)
-  if (req.isAuthenticated()) { return next(); }
+  let session = _.get(req,'sessionStore.sessions',false)
+  if(!_.isEmpty(session) && session){
+    req.user = JSON.parse(_.values(session)[0]).passport.user
+  }
+  if (req.user) { return next(); }
   res.redirect('/login');
 };
 export default (express, passport) => {
   const router = new express.Router();
-router.get('/', ensureAuthenticated,function(req, res) {
+router.get('/',function(req, res) {
   res.render('index', {page:'Home', menuId:'home',user: req.user });
 });
 
@@ -988,7 +990,7 @@ router.get('/logout', function(req, res){
 // });
 
 router.get('/about',ensureAuthenticated, function(req, res, next) {
-  res.render('about', {page:'About Us', menuId:'about'});
+  res.render('about', {page:'About Us', menuId:'about',user: req.user});
 });
 
 router.get('/users',ensureAuthenticated, function(req, res, next) {
@@ -1003,7 +1005,7 @@ return {
   id:item.id
 }
 })
-  res.render('users', {page:'users', menuId:'users',data:processdata});
+  res.render('users', {page:'users', menuId:'users',data:processdata,user: req.user});
 });
 
 router.get('/user', ensureAuthenticated,function(req, res, next) {
@@ -1022,7 +1024,7 @@ router.get('/user', ensureAuthenticated,function(req, res, next) {
 let final = _.find(processdata,item=>{
   return item.id===_.toNumber(req.query.id)
 })
-    res.render('user', {page:'user', menuId:'user',data:final});
+    res.render('user', {page:'user', menuId:'user',data:final,user: req.user});
   });
 
 return router
