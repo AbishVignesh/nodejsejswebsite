@@ -4,9 +4,27 @@ var logger = require('morgan');
 var index = require('./routes/index');
 var app = express();
 var Morgan = require('morgan');
+var passport = require('passport');
+var config = require('./config')
 
+var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 
+passport.use(new OIDCStrategy(config.AUTHSTRAYEGY,
+function(iss, sub, profile, accessToken, refreshToken, done) {
+  return done(null, profile);
+}
+));
+app.use(bodyParser.urlencoded({ extended : true }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -14,13 +32,17 @@ app.set('view engine', 'ejs');
 // app.use(Morgan(':date> :method :url - {:referrer} => :status (:response-time ms)'));
 app.use(Morgan("dev"))
 
+const Routes = index(express, passport);
 
 // set path for static assets
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use();
 
 // routes
-app.use('/', index);
+app.use('/', Routes);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

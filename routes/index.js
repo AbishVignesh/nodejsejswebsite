@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
+// var express = require('express');
+// var router = express.Router();
 var _ = require('lodash')
+var config = require('./../config')
 var data = [{
   "login": "simonjefford",
   "id": 136,
@@ -904,15 +905,91 @@ var data = [{
 ]
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', {page:'Home', menuId:'home'});
+
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+};
+export default (express, passport) => {
+  const router = new express.Router();
+router.get('/', ensureAuthenticated,function(req, res) {
+  res.render('index', {page:'Home', menuId:'home',user: req.user });
 });
 
-router.get('/about', function(req, res, next) {
+// '/account' is only available to logged in user
+// app.get('/account', ensureAuthenticated, function(req, res) {
+//   res.render('account', { user: req.user });
+// });
+
+router.get('/login',
+  function(req, res, next) {
+    passport.authenticate('azuread-openidconnect', 
+      { 
+        response: res,                      // required
+        failureRedirect: '/' 
+      }
+    )(req, res, next);
+  },
+  function(req, res) {
+    log.info('Login was called in the Sample');
+    res.redirect('/');
+});
+
+// 'GET returnURL'
+// `passport.authenticate` will try to authenticate the content returned in
+// query (such as authorization code). If authentication fails, user will be
+// redirected to '/' (home page); otherwise, it passes to the next middleware.
+router.get('/auth/openid/return',
+  function(req, res, next) {
+    passport.authenticate('azuread-openidconnect', 
+      { 
+        response: res,                      // required
+        failureRedirect: '/'  
+      }
+    )(req, res, next);
+  },
+  function(req, res) {
+    log.info('We received a return from AzureAD.');
+    res.redirect('/');
+  });
+
+// 'POST returnURL'
+// `passport.authenticate` will try to authenticate the content returned in
+// body (such as authorization code). If authentication fails, user will be
+// redirected to '/' (home page); otherwise, it passes to the next middleware.
+router.post('/auth/openid/return',
+  function(req, res, next) {
+    passport.authenticate('azuread-openidconnect', 
+      { 
+        response: res,                      // required
+        failureRedirect: '/'  
+      }
+    )(req, res, next);
+  },
+  function(req, res) {
+    log.info('We received a return from AzureAD.');
+    res.redirect('/');
+  });
+
+// 'logout' route, logout from passport, and destroy the session with AAD.
+router.get('/logout', function(req, res){
+  req.session.destroy(function(err) {
+    req.logOut();
+    res.redirect(config.destroySessionUrl);
+  });
+});
+
+
+// router.get('/', function(req, res, next) {
+//   res.render('index', {page:'Home', menuId:'home'});
+// });
+
+router.get('/about',ensureAuthenticated, function(req, res, next) {
   res.render('about', {page:'About Us', menuId:'about'});
 });
 
-router.get('/users', function(req, res, next) {
+router.get('/users',ensureAuthenticated, function(req, res, next) {
 let processdata = _.map(data,item=>{
 return {
   name:item.login,
@@ -927,7 +1004,7 @@ return {
   res.render('users', {page:'users', menuId:'users',data:processdata});
 });
 
-router.get('/user', function(req, res, next) {
+router.get('/user', ensureAuthenticated,function(req, res, next) {
   let processdata = _.map(data,item=>{
   return {
     name:item.login,
@@ -946,4 +1023,5 @@ let final = _.find(processdata,item=>{
     res.render('user', {page:'user', menuId:'user',data:final});
   });
 
-module.exports = router;
+return router
+};
