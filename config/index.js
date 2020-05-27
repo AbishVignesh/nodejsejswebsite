@@ -17,7 +17,7 @@ const {
 module.exports = {
     PORT: PORT||3000,
     TRAFIC_MANAGER,
-    AUTHSTRAYEGY:{identityMetadata: 'https://login.microsoftonline.com/'+TENENT_NAME+'.onmicrosoft.com/v2.0/.well-known/openid-configuration', 
+    AUTHSTRAYEGY:{identityMetadata: 'https://login.microsoftonline.com/'+TENENT_NAME+'/v2.0/.well-known/openid-configuration', 
     clientID: CLIENT_ID,
     responseType: 'code id_token', 
     responseMode: 'form_post', 
@@ -33,6 +33,6 @@ module.exports = {
     nonceLifetime: null,
     nonceMaxAmount: 5,
     clockSkew: null},
-    destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri='+TRAFIC_MANAGER
+    destroySessionUrl:'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri='+TRAFIC_MANAGER
       
 };
