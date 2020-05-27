@@ -7,6 +7,8 @@ var Morgan = require('morgan');
 var passport = require('passport');
 var config = require('./config')
 var bodyParser =require('body-parser')
+var cookieParser = require('cookie-parser');
+var methodOverride = require('method-override');
 var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 var expressSession = require('express-session');
 
@@ -20,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended : true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride());
+app.use(cookieParser());
 app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized: false }));
 
 passport.serializeUser(function (user, done) {

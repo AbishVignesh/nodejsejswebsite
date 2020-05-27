@@ -908,6 +908,8 @@ var data = [{
 
 
 function ensureAuthenticated(req, res, next) {
+  console.log("====>",req,user)
+  console.log("====>",req)
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 };

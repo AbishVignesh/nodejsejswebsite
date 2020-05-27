@@ -28,6 +28,10 @@ module.exports = {
     issuer: null,
     passReqToCallback: false,
     useCookieInsteadOfSession: true,
+    cookieEncryptionKeys: [ 
+        { 'key': '12345678901234567890123456789012', 'iv': '123456789012' },
+        { 'key': 'abcdefghijklmnopqrstuvwxyzabcdef', 'iv': 'abcdefghijkl' }
+      ],
     scope: ['profile', 'offline_access'],
     loggingLevel: 'info',
     nonceLifetime: null,
