@@ -917,7 +917,7 @@ function ensureAuthenticated(req, res, next) {
 };
 export default (express, passport) => {
   const router = new express.Router();
-router.get('/',function(req, res) {
+router.get('/',ensureAuthenticated,function(req, res) {
   res.render('index', {page:'Home', menuId:'home',user: req.user });
 });
 
@@ -936,7 +936,7 @@ router.get('/login',
     )(req, res, next);
   },
   function(req, res) {
-    log.info('Login was called in the Sample');
+    console.log('Login was called in the Sample');
     res.redirect('/');
 });
 
@@ -954,7 +954,7 @@ router.get('/auth/openid/return',
     )(req, res, next);
   },
   function(req, res) {
-    log.info('We received a return from AzureAD.');
+    console.log('We received a return from AzureAD.');
     res.redirect('/');
   });
 
@@ -972,7 +972,7 @@ router.post('/auth/openid/return',
     )(req, res, next);
   },
   function(req, res) {
-    log.info('We received a return from AzureAD.');
+    console.log('We received a return from AzureAD.');
     res.redirect('/');
   });
 
