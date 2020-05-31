@@ -13,11 +13,11 @@ var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 var expressSession = require('express-session');
 
 
-passport.use(new OIDCStrategy(config.AUTHSTRAYEGY,
-function(iss, sub, profile, accessToken, refreshToken, done) {
-  return done(null, profile);
-}
-));
+// passport.use(new OIDCStrategy(config.AUTHSTRAYEGY,
+// function(iss, sub, profile, accessToken, refreshToken, done) {
+//   return done(null, profile);
+// }
+// ));
 app.use(bodyParser.urlencoded({ extended : true }));
 
 app.use(passport.initialize());
@@ -26,13 +26,13 @@ app.use(methodOverride());
 app.use(cookieParser());
 app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized: false }));
 
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user);
+// });
 
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
+// passport.deserializeUser(function (user, done) {
+//   done(null, user);
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
