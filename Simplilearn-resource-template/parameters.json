@@ -1,0 +1,87 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "loadBalancers_EastUSwebLB_name": {
+            "value": null
+        },
+        "virtualNetworks_VnetEastUS_name": {
+            "value": null
+        },
+        "loadBalancers_EastUSImageLB_name": {
+            "value": null
+        },
+        "virtualMachines_EastUsVMWeb1_name": {
+            "value": null
+        },
+        "applicationGateways_EastUSAG_name": {
+            "value": null
+        },
+        "loadBalancers_CentralUSWebLB_name": {
+            "value": null
+        },
+        "publicIPAddresses_EastUSAGIP_name": {
+            "value": null
+        },
+        "virtualNetworks_VnetCentraUS_name": {
+            "value": null
+        },
+        "virtualMachines_EastUSVMImage_name": {
+            "value": null
+        },
+        "publicIPAddresses_eastuswebip_name": {
+            "value": null
+        },
+        "virtualMachines_VMCentralUSWeb_name": {
+            "value": null
+        },
+        "loadBalancers_CentralUsLBImage_name": {
+            "value": null
+        },
+        "applicationGateways_CentralUSAG_name": {
+            "value": null
+        },
+        "publicIPAddresses_CentralUSAGip_name": {
+            "value": null
+        },
+        "publicIPAddresses_eastUsimageip_name": {
+            "value": null
+        },
+        "virtualMachines_VMCentralUSImage_name": {
+            "value": null
+        },
+        "networkInterfaces_eastusvmweb1946_name": {
+            "value": null
+        },
+        "trafficManagerProfiles_tyrellcrop_name": {
+            "value": null
+        },
+        "networkInterfaces_eastusvmimage865_name": {
+            "value": null
+        },
+        "publicIPAddresses_centralUSweblbip_name": {
+            "value": null
+        },
+        "networkInterfaces_vmcentralusweb873_name": {
+            "value": null
+        },
+        "publicIPAddresses_centralusimalelbip_name": {
+            "value": null
+        },
+        "networkInterfaces_vmcentralusimage876_name": {
+            "value": null
+        },
+        "networkSecurityGroups_EastUsVMWeb1_nsg_name": {
+            "value": null
+        },
+        "networkSecurityGroups_EastUSVMImage_nsg_name": {
+            "value": null
+        },
+        "networkSecurityGroups_VMCentralUSWeb_nsg_name": {
+            "value": null
+        },
+        "networkSecurityGroups_VMCentralUSImage_nsg_name": {
+            "value": null
+        }
+    }
+}
